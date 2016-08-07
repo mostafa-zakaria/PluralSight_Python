@@ -1,7 +1,8 @@
 class Cart:
     def __init__(self):
         self._contents = dict()
-
+        self.quit = False
+        
     def add_item(self, item):
         if not item in self._contents:
             self._contents[item] = 0
@@ -22,36 +23,53 @@ class Cart:
 
     def print_cart(self):
         print(self._contents)
-        
-        
-def get_order():
-    print("[command] [item] (Command is A to Add, D to Delete, Q to Quit, P to Print)")
-    line = input()
 
-    command = line[:1]
-    item = line[2:]
+    def process_order(self, order):
+        if(order.add):
+            self.add_item(order.item)
+        elif (order.delete) and (self.contains(order.item)):
+            self.remove_item(order.item)
+        elif (order.printC):
+            self.print_cart()
+        elif(order.quit):
+            self.quit = True
+        
+class Order:
+    def __init__(self):
+        self.quit = False
+        self.add = False
+        self.delete = False
+        self.printC = False
+        self.item = None
+
+    def get_order(self):
+        print("[command] [item] (Command is A to Add, D to Delete, Q to Quit, P to Print)")
+        line = input()
+
+        command = line[:1]
+        self.item = line[2:]
+
+        if(command == 'A'):
+            self.add = True
+        elif (command == 'D'):
+            self.delete = True
+        elif (command == 'Q'):
+            self.quit = True
+        else:
+            self.printC = True
+        
+
+def get_order():
     return (command, item)
       
-def process_order(order, cart):
-    flag = True
-    command, item = order
-
-    if (command == 'A'):
-        cart.add_item(item)
-    if (command == 'D') and (cart.contains(item)):
-        cart.remove_item(item)
-    if command == 'P':
-        cart.print_cart()
-    if command == 'Q':
-        flag = False
-
-    return flag
-
 def go_shopping():
     cart = Cart()
-    while True:
-        if not process_order(get_order(), cart):
-            break
+    order = Order()
+    while not cart.quit:
+        order.get_order()
+        cart.process_order(order)
+        order = Order()
+
     print("Finished Shopping")
 
 
