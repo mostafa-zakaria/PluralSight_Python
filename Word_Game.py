@@ -51,8 +51,10 @@ def play_word_game():
     if(strikes < max_strikes):
         print('Winner')
     else:
-        print('Loser')
+        print('Loser!')
+        print('The word was> ' + word)
         
 
 print('Game Started')
+
 play_word_game()
