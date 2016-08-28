@@ -1,7 +1,7 @@
 import random
 
 def get_random_word():
-    words = ['Juno', 'Hypatia', 'Achilles', 'Hector', 'Mulberry', 'Telephone']
+    words = ['Juno', 'Hypatia', 'Achilles', 'Hector', 'Mulberry', 'Telephone', 'Alexandria']
     word = words[random.randint(0, len(words) - 1 )]
     return word
 
